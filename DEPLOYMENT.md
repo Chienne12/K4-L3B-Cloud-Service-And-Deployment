@@ -12,7 +12,7 @@
 |-----|----------|
 | Họ và tên | Phùng Trọng Chiến |
 | Mã học viên | 2A202602430 |
-| Repo | https://github.com/Chienne12/K4-L3B-Cloud-Service-And-Deployment |
+| Repo | https://github.com/Chienne12/K4-L3B-DAY12-PhungTrongChien-2A202602430-CloudServicesAndDeployment |
 
 ## Service
 

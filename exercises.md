@@ -17,7 +17,10 @@ khi khởi động nếu thiếu biến môi trường. Hãy mô tả một tìn
 việc "chết sớm" này cứu bạn, so với việc để mặc định `"changeme"`.
 
 > *Câu trả lời của bạn*
+Khi bạn quyên gán giá trị agent_api_key trong env , khi chạy thử chương trình láy biến từ env và không có biến thì nếu k có try except  thì chương trương trình sẽ dừng đột ngột và ném lỗi  . NHư vậy  tôi biết cấu hình nào đang thiếu và bộ sung key sercret trước khi public server . 
 
+Nếu dùng mặc định là "Changme " thì ứng dụng sẽ chạy được luôn , và giá trị này có thể bị lộ và bị kẻ khác  lợi dụng . 
+Vì vậy k gán giá trị mặc định giúp phát hiện lỗi deploy dễ hơn 
 ---
 
 ### Câu 2 — Log cho máy đọc (CP1)
@@ -27,6 +30,8 @@ nêu **hai** việc bạn làm được với dòng log đó mà `print("đã tr
 không làm được.
 
 > *Câu trả lời của bạn*
+Tôi đọc được  json  trả về phát hiện : 
+Error  : "error":"Expecting property name enclosed in double quotes" 
 
 ---
 

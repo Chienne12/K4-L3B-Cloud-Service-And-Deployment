@@ -10,15 +10,15 @@ Luồng thực hiện:
 
 ## 0. Setup môi trường
 
-- [ ] Đổi tên repository đúng mẫu:
+- [x] Đổi tên repository đúng mẫu:
   `K4-L3B-DAY12-<HoVaTen>-<MSSV>-CloudServicesAndDeployment`.
-- [ ] Tạo và kích hoạt môi trường ảo `.venv`.
-- [ ] Chạy `pip install -r requirements.txt`.
-- [ ] Copy `.env.example` thành `.env`.
-- [ ] Sinh `AGENT_API_KEY` riêng, không dùng giá trị mẫu.
-- [ ] Khởi động Redis bằng `docker compose up -d redis` hoặc tạm dùng `REDIS_URL=fake://`.
-- [ ] Xác nhận `.env` không được Git theo dõi.
-- [ ] Chạy thử:
+- [x] Tạo và kích hoạt môi trường ảo `.venv`.
+- [x] Chạy `pip install -r requirements.txt`.
+- [x] Copy `.env.example` thành `.env`.
+- [x] Sinh `AGENT_API_KEY` riêng, không dùng giá trị mẫu.
+- [x] Khởi động Redis bằng `docker compose up -d redis` hoặc tạm dùng `REDIS_URL=fake://`.
+- [x] Xác nhận `.env` không được Git theo dõi.
+- [x] Chạy thử:
 
 ```powershell
 python -m pytest tests/ -v -m "not docker"
@@ -34,13 +34,13 @@ Kết quả cần đạt: pytest chạy được, không có `ModuleNotFoundErro
 
 Mục đích: đọc toàn bộ cấu hình từ biến môi trường và dừng sớm nếu thiếu secret.
 
-- [ ] Khai báo `port: int = 8000`.
-- [ ] Khai báo `agent_api_key: str` và không đặt giá trị mặc định.
-- [ ] Khai báo `redis_url: str = "redis://localhost:6379/0"`.
-- [ ] Khai báo `rate_limit_per_minute: int = 10`.
-- [ ] Khai báo `monthly_budget_usd: float = 10.0`.
-- [ ] Khai báo `log_level: str = "INFO"`.
-- [ ] Không hardcode API key hoặc secret trong code.
+- [x] Khai báo `port: int = 8000`.
+- [x] Khai báo `agent_api_key: str` và không đặt giá trị mặc định.
+- [x] Khai báo `redis_url: str = "redis://localhost:6379/0"`.
+- [x] Khai báo `rate_limit_per_minute: int = 10`.
+- [x] Khai báo `monthly_budget_usd: float = 10.0`.
+- [x] Khai báo `log_level: str = "INFO"`.
+- [x] Không hardcode API key hoặc secret trong code.
 
 Luồng: biến môi trường → `Settings` kiểm tra kiểu → đối tượng cấu hình dùng chung.
 
@@ -48,13 +48,13 @@ Luồng: biến môi trường → `Settings` kiểm tra kiểu → đối tư�
 
 Mục đích: tạo log JSON một dòng để hệ thống cloud có thể tìm kiếm và thống kê.
 
-- [ ] Cài đặt `log_event()`.
-- [ ] Tạo các trường `event`, `level`, `timestamp`.
-- [ ] Chuyển `level` thành chữ thường.
-- [ ] Gộp các trường bổ sung từ `**fields`.
-- [ ] Dùng `json.dumps(..., ensure_ascii=False)` và không dùng `indent`.
-- [ ] In đúng một dòng ra stdout.
-- [ ] Trả về chuỗi JSON vừa in.
+- [x] Cài đặt `log_event()`.
+- [x] Tạo các trường `event`, `level`, `timestamp`.
+- [x] Chuyển `level` thành chữ thường.
+- [x] Gộp các trường bổ sung từ `**fields`.
+- [x] Dùng `json.dumps(..., ensure_ascii=False)` và không dùng `indent`.
+- [x] In đúng một dòng ra stdout.
+- [x] Trả về chuỗi JSON vừa in.
 
 Luồng: tên sự kiện + dữ liệu bổ sung → thêm timestamp → JSON một dòng → stdout.
 
@@ -62,9 +62,9 @@ Luồng: tên sự kiện + dữ liệu bổ sung → thêm timestamp → JSON m
 
 Mục đích: cho platform biết process còn sống hay đang tắt.
 
-- [ ] Bình thường trả `status: ok`, tên service và version.
-- [ ] Khi `lifecycle.shutting_down` là `True`, trả HTTP 503 với `status: shutting_down`.
-- [ ] Không gọi Redis, database hoặc dùng dependency ngoài trong `/health`.
+- [x] Bình thường trả `status: ok`, tên service và version.
+- [x] Khi `lifecycle.shutting_down` là `True`, trả HTTP 503 với `status: shutting_down`.
+- [x] Không gọi Redis, database hoặc dùng dependency ngoài trong `/health`.
 
 Luồng: đọc trạng thái process → trả 200 hoặc 503 → kết thúc, không kiểm tra Redis.
 
@@ -74,8 +74,8 @@ Luồng: đọc trạng thái process → trả 200 hoặc 503 → kết thúc, 
 python -m pytest tests/test_cp1.py -v
 ```
 
-- [ ] Toàn bộ test CP1 pass.
-- [ ] Commit checkpoint CP1.
+- [x] Toàn bộ test CP1 pass.
+- [x] Commit checkpoint CP1.
 
 ---
 
@@ -85,14 +85,14 @@ python -m pytest tests/test_cp1.py -v
 
 Mục đích: tạo image nhỏ, an toàn và chạy đúng trên cloud.
 
-- [ ] Dùng multi-stage build và có stage `builder`.
-- [ ] Dùng base image gọn như `python:3.11-slim`.
-- [ ] Copy `requirements.txt` và cài dependency trước khi copy source.
-- [ ] Runtime stage chỉ nhận dependency và source cần thiết.
-- [ ] Tạo user thường và chuyển sang bằng lệnh `USER`.
-- [ ] Thêm `HEALTHCHECK` gọi `/health`.
-- [ ] Lệnh chạy Uvicorn đọc cổng từ biến `$PORT`.
-- [ ] Không hardcode API key hoặc secret.
+- [x] Dùng multi-stage build và có stage `builder`.
+- [x] Dùng base image gọn như `python:3.11-slim`.
+- [x] Copy `requirements.txt` và cài dependency trước khi copy source.
+- [x] Runtime stage chỉ nhận dependency và source cần thiết.
+- [x] Tạo user thường và chuyển sang bằng lệnh `USER`.
+- [x] Thêm `HEALTHCHECK` gọi `/health`.
+- [x] Lệnh chạy Uvicorn đọc cổng từ biến `$PORT`.
+- [x] Không hardcode API key hoặc secret.
 
 Luồng: builder cài dependency → runtime nhận kết quả → user thường chạy Uvicorn bằng `$PORT`.
 
@@ -100,14 +100,14 @@ Luồng: builder cài dependency → runtime nhận kết quả → user thườ
 
 Mục đích: chạy đầy đủ stack `agent + Redis` trên máy local.
 
-- [ ] Thêm service `agent`.
-- [ ] Build agent từ Dockerfile trong thư mục hiện tại.
-- [ ] Map cổng `8000:8000`.
-- [ ] Truyền API key bằng `${AGENT_API_KEY}`.
-- [ ] Đặt `REDIS_URL=redis://redis:6379/0`.
-- [ ] Khai báo agent phụ thuộc service `redis`.
-- [ ] Thêm healthcheck gọi `/health`.
-- [ ] Không ghi trực tiếp giá trị secret trong Compose.
+- [x] Thêm service `agent`.
+- [x] Build agent từ Dockerfile trong thư mục hiện tại.
+- [x] Map cổng `8000:8000`.
+- [x] Truyền API key bằng `${AGENT_API_KEY}`.
+- [x] Đặt `REDIS_URL=redis://redis:6379/0`.
+- [x] Khai báo agent phụ thuộc service `redis`.
+- [x] Thêm healthcheck gọi `/health`.
+- [x] Không ghi trực tiếp giá trị secret trong Compose.
 
 Luồng: Compose tạo Redis → hostname là `redis` → agent kết nối qua mạng nội bộ.
 
@@ -115,11 +115,11 @@ Luồng: Compose tạo Redis → hostname là `redis` → agent kết nối qua 
 
 Mục đích: loại file không cần thiết và ngăn secret lọt vào Docker image.
 
-- [ ] Loại `.env`.
-- [ ] Loại `.git` và `.gitignore`.
-- [ ] Loại `.venv`, `venv`.
+- [x] Loại `.env`.
+- [x] Loại `.git` và `.gitignore`.
+- [x] Loại `.venv`, `venv`.
 - [ ] Loại `__pycache__`, `.pytest_cache`, `*.pyc`.
-- [ ] Không loại nhầm `app/`, `utils/` hoặc `requirements.txt`.
+- [x] Không loại nhầm `app/`, `utils/` hoặc `requirements.txt`.
 
 ### Kiểm tra CP2
 
@@ -130,10 +130,10 @@ docker compose up -d
 curl.exe http://localhost:8000/health
 ```
 
-- [ ] Toàn bộ test CP2 pass.
-- [ ] Container agent và Redis đều chạy hoặc healthy.
-- [ ] Ghi lại kích thước image để trả lời `exercises.md`.
-- [ ] Commit checkpoint CP2.
+- [x] Toàn bộ test CP2 pass.
+- [] Container agent và Redis đều chạy hoặc healthy.
+- [x] Ghi lại kích thước image để trả lời `exercises.md`.
+- [x] Commit checkpoint CP2.
 
 ---
 

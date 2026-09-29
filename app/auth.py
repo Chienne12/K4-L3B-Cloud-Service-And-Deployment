@@ -19,7 +19,12 @@ def verify_api_key(
     x_api_key: str | None = Header(default=None),
     x_user_id: str | None = Header(default=None),
 ) -> str:
-    """Kiểm tra header ``X-API-Key``; trả về user_id nếu hợp lệ.
+   api_key = get_settings().agent_api_key
+   if x_api_key == None or not secrets.compare_digest(x_api_key,api_key) : 
+      raise HTTPException(status_code=401, detail="invalid or missing API key")
+   return x_user_id or ANONYMOUS_USER
+
+   """Kiểm tra header ``X-API-Key``; trả về user_id nếu hợp lệ.
 
     TODO (CP3):
       1. Lấy khóa đúng từ ``get_settings().agent_api_key``.
@@ -34,4 +39,3 @@ def verify_api_key(
 
     Gợi ý: dùng ``status.HTTP_401_UNAUTHORIZED`` cho dễ đọc.
     """
-    raise NotImplementedError("TODO (CP3): cài đặt verify_api_key")

@@ -125,6 +125,48 @@ def ask(
     limiter: RateLimiter = Depends(get_rate_limiter),
     guard: CostGuard = Depends(get_cost_guard),
 ):
+    limiter.check(user_id)
+    guard.check(user_id)
+    history = store.get_history(user_id)
+    result = ask_llm(
+        payload.question,
+        history,
+    )
+    store.append(
+        user_id,
+        "user",
+        payload.question,
+    )
+
+    store.append(
+        user_id,
+        "assistant",
+        result["answer"],
+    )
+
+    guard.record(
+        user_id,
+        result["cost_usd"],
+    )
+
+    log_event(
+        "ask_completed",
+        user_id=user_id,
+        tokens_in=result["tokens_in"],
+        tokens_out=result["tokens_out"],
+        cost_usd=result["cost_usd"],
+    )
+
+    return {
+        "answer": result["answer"],
+        "user_id": user_id,
+        "history_length": len(history),
+        "cost_usd": result["cost_usd"],
+        "tokens": {
+            "in": result["tokens_in"],
+            "out": result["tokens_out"],
+        },
+    }
     """Hỏi agent một câu.
 
     TODO (CP3 + CP4) — làm ĐÚNG THỨ TỰ sau:
@@ -154,7 +196,7 @@ def ask(
     ``user_id`` do ``verify_api_key`` trả về, nên request không có API key
     hợp lệ sẽ dừng ở 401 trước khi chạm vào bất cứ dòng nào ở đây.
     """
-    raise NotImplementedError("TODO (CP3/CP4): cài đặt /ask")
+    
 
 
 if __name__ == "__main__":

@@ -131,7 +131,7 @@ curl.exe http://localhost:8000/health
 ```
 
 - [x] Toàn bộ test CP2 pass.
-- [] Container agent và Redis đều chạy hoặc healthy.
+- [x] Container agent và Redis đều chạy hoặc healthy.
 - [x] Ghi lại kích thước image để trả lời `exercises.md`.
 - [x] Commit checkpoint CP2.
 
@@ -143,11 +143,11 @@ curl.exe http://localhost:8000/health
 
 Mục đích: chỉ cho request có API key hợp lệ đi vào `/ask`.
 
-- [ ] Đọc key chuẩn từ `get_settings().agent_api_key`.
-- [ ] Thiếu hoặc sai `X-API-Key` thì trả HTTP 401.
-- [ ] Dùng `secrets.compare_digest()`, không dùng `==`.
-- [ ] Key hợp lệ thì trả `X-User-Id`.
-- [ ] Không có `X-User-Id` thì trả `anonymous`.
+- [x] Đọc key chuẩn từ `get_settings().agent_api_key`.
+- [x] Thiếu hoặc sai `X-API-Key` thì trả HTTP 401.
+- [x] Dùng `secrets.compare_digest()`, không dùng `==`.
+- [x] Key hợp lệ thì trả `X-User-Id`.
+- [x] Không có `X-User-Id` thì trả `anonymous`.
 
 Luồng: đọc header → so sánh key → sai thì dừng 401 → đúng thì trả `user_id`.
 
@@ -155,12 +155,12 @@ Luồng: đọc header → so sánh key → sai thì dừng 401 → đúng thì 
 
 Mục đích: giới hạn số request của từng user trong 60 giây gần nhất.
 
-- [ ] `hit_count()` xóa các entry cũ hơn 60 giây.
-- [ ] `hit_count()` trả số request còn lại trong sorted set.
-- [ ] `check()` kiểm tra số lượt trước khi ghi request mới.
-- [ ] Quá giới hạn thì trả HTTP 429 và header `Retry-After`.
-- [ ] Dùng member duy nhất, kết hợp timestamp với UUID.
-- [ ] Đặt TTL 60 giây cho key.
+- [x] `hit_count()` xóa các entry cũ hơn 60 giây.
+- [x] `hit_count()` trả số request còn lại trong sorted set.
+- [x] `check()` kiểm tra số lượt trước khi ghi request mới.
+- [x] Quá giới hạn thì trả HTTP 429 và header `Retry-After`.
+- [x] Dùng member duy nhất, kết hợp timestamp với UUID.
+- [x] Đặt TTL 60 giây cho key.
 
 Luồng: khoanh vùng 60 giây → xóa mốc cũ → đếm → quá giới hạn thì dừng → chưa quá thì ghi mốc mới.
 
@@ -168,12 +168,12 @@ Luồng: khoanh vùng 60 giây → xóa mốc cũ → đếm → quá giới h�
 
 Mục đích: giới hạn tổng chi phí của từng user theo tháng.
 
-- [ ] `spent()` trả `0.0` khi Redis chưa có dữ liệu.
-- [ ] `spent()` ép dữ liệu Redis thành `float`.
-- [ ] `check()` trả HTTP 402 nếu tổng dự kiến vượt ngân sách.
-- [ ] `record()` cộng chi phí bằng `incrbyfloat`.
-- [ ] `record()` đặt TTL và trả tổng chi phí mới.
-- [ ] Dữ liệu được tách theo user và tháng.
+- [x] `spent()` trả `0.0` khi Redis chưa có dữ liệu.
+- [x] `spent()` ép dữ liệu Redis thành `float`.
+- [x] `check()` trả HTTP 402 nếu tổng dự kiến vượt ngân sách.
+- [x] `record()` cộng chi phí bằng `incrbyfloat`.
+- [x] `record()` đặt TTL và trả tổng chi phí mới.
+- [x] Dữ liệu được tách theo user và tháng.
 
 Luồng: user + tháng → đọc tổng tiền → kiểm tra budget → gọi LLM → ghi chi phí thật.
 
@@ -181,7 +181,7 @@ Luồng: user + tháng → đọc tổng tiền → kiểm tra budget → gọi 
 
 Mục đích: ráp các lớp bảo vệ, lịch sử và mock LLM thành endpoint chính.
 
-- [ ] Thực hiện đúng thứ tự:
+- [x] Thực hiện đúng thứ tự:
   1. `limiter.check(user_id)`.
   2. `guard.check(user_id)`.
   3. Đọc history.
@@ -190,8 +190,8 @@ Mục đích: ráp các lớp bảo vệ, lịch sử và mock LLM thành endpoi
   6. Ghi nhận chi phí.
   7. Ghi log hoàn thành.
   8. Trả response.
-- [ ] Response có `answer`, `user_id`, `history_length`, `cost_usd`, `tokens`.
-- [ ] Không gọi LLM trước khi kiểm tra rate limit và ngân sách.
+- [x] Response có `answer`, `user_id`, `history_length`, `cost_usd`, `tokens`.
+- [x] Không gọi LLM trước khi kiểm tra rate limit và ngân sách.
 
 Luồng: auth → rate limit → cost guard → history → LLM → lưu state → ghi cost/log → response.
 
@@ -201,8 +201,8 @@ Luồng: auth → rate limit → cost guard → history → LLM → lưu state �
 python -m pytest tests/test_cp3.py -v
 ```
 
-- [ ] Toàn bộ test CP3 pass.
-- [ ] Commit checkpoint CP3.
+- [x] Toàn bộ test CP3 pass.
+- [x] Commit checkpoint CP3.
 
 ---
 
